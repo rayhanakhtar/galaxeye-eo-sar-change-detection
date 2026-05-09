@@ -1,0 +1,49 @@
+# Dataset
+dataset/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+.eggs/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.parts/
+sdist/
+var/
+wheels/
+*.whl
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+.ipynb
+
+# PyTorch
+*.pth
+*.pt
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
