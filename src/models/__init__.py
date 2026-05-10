@@ -1,5 +1,5 @@
-"""Models module"""
+"""Model exports."""
 
-from src.models.siamese_unet import SiameseUNet
+from src.models.siamese_unet import DualEncoderEOSARUNet, SiameseUNet
 
-__all__ = ["SiameseUNet"]
+__all__ = ["DualEncoderEOSARUNet", "SiameseUNet"]

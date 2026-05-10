@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project addresses the task of **binary change detection** on paired Electro-Optical (EO) and Synthetic Aperture Radar (SAR) satellite imagery. The goal is to classify each pixel as changed (1) or unchanged (0) between pre-event and post-event image pairs, which is critical for disaster response, urban monitoring, and environmental surveillance.
+This project addresses **binary change detection** on paired Electro-Optical (EO) and Synthetic Aperture Radar (SAR) satellite imagery. The goal is to classify each pixel as changed (1) or unchanged (0) between pre-event and post-event image pairs.
 
 ## Task Summary
 
@@ -38,9 +38,9 @@ dataset/
 
 ## Key Challenges
 
-1. **Multi-modal Fusion**: EO (optical) and SAR (radar) have different physical properties and noise profiles
-2. **Class Imbalance**: Change pixels are typically a small fraction in disaster datasets
-3. **Generalization**: Model must work across diverse disaster events and geographic locations
+1. **Multi-modal Fusion**: EO pre-event images are RGB while SAR post-event images are grayscale and physically different modalities
+2. **Class Imbalance**: Change pixels are a severe minority class in all splits
+3. **Generalization**: The model must work across multiple disaster scenes with limited labeled data
 
 ## Evaluation Metrics
 
@@ -114,7 +114,14 @@ dataset/
 
 ---
 
-## Quick Start Commands (To Be Implemented)
+## Current Baseline
+
+- Model: `DualEncoderEOSARUNet` with separate ResNet34 encoders for EO and SAR
+- Loss: `FocalDiceLoss`
+- Output: 2-channel logits for binary segmentation with change-class metrics
+- Input pipeline: EO RGB + SAR grayscale, resized to `256x256`, with mandatory label remapping
+
+## Quick Start Commands
 
 ```bash
 # Setup environment
@@ -123,13 +130,13 @@ conda activate eosar_cd
 pip install -r requirements.txt
 
 # Train model
-python train.py --config config.yaml
+python -m src.train --config config.yaml
 
-# Evaluate on test set
-python eval.py --data_path dataset/test --weights checkpoint.pth
+# Evaluate on validation or test set
+python -m src.eval --data_path dataset/val --weights checkpoints/best.pth --config config.yaml
 
 # Visualize predictions
-python visualize.py --input dataset/test --output results/
+python -m src.visualize --data_path dataset/val --weights checkpoints/best.pth --output results --config config.yaml
 ```
 
 ## Expected Deliverables
