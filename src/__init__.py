@@ -1,6 +1,11 @@
-"""EO-SAR Change Detection Package"""
+"""EO-SAR change detection package exports."""
 
-from src.data.dataset import ChangeDetectionDataset
-from src.models.siamese_unet import SiameseUNet
+from src.data.dataset import ChangeDetectionDataset, JointTransform
+from src.models.siamese_unet import DualEncoderEOSARUNet, SiameseUNet
 
-__all__ = ["ChangeDetectionDataset", "SiameseUNet"]
+__all__ = [
+    "ChangeDetectionDataset",
+    "DualEncoderEOSARUNet",
+    "JointTransform",
+    "SiameseUNet",
+]

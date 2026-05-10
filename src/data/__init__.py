@@ -1,5 +1,5 @@
-"""Data module"""
+"""Data exports."""
 
-from src.data.dataset import ChangeDetectionDataset
+from src.data.dataset import ChangeDetectionDataset, JointTransform
 
-__all__ = ["ChangeDetectionDataset"]
+__all__ = ["ChangeDetectionDataset", "JointTransform"]

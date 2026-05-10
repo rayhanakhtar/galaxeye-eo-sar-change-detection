@@ -55,59 +55,59 @@ dataset/
 ## Roadmap
 
 ### Phase 1: Data Exploration & Analysis
-- [ ] Load and visualize sample image pairs (EO + SAR + Target)
-- [ ] Analyze image dimensions, channels, and data types
-- [ ] Compute class distribution (change vs no-change ratio)
-- [ ] Identify unique disaster events/scenes in dataset
-- [ ] Analyze spatial resolution and sensor characteristics
+- [x] Load and visualize sample image pairs (EO + SAR + Target)
+- [x] Analyze image dimensions, channels, and data types
+- [x] Compute class distribution (change vs no-change ratio)
+- [x] Identify unique disaster events/scenes in dataset
+- [x] Analyze spatial resolution and sensor characteristics
 
 ### Phase 2: Literature Survey
-- [ ] Review change detection methods in remote sensing
-- [ ] Study EO-SAR fusion approaches
-- [ ] Explore architectures: Siamese networks, UNet variants, attention mechanisms
-- [ ] Research handling of class imbalance (weighted loss, focal loss, etc.)
-- [ ] Identify state-of-the-art methods and pretrained backbones
+- [x] Review change detection methods in remote sensing
+- [x] Study EO-SAR fusion approaches
+- [x] Explore architectures: Siamese networks, UNet variants, attention mechanisms
+- [x] Research handling of class imbalance (weighted loss, focal loss, etc.)
+- [x] Identify state-of-the-art methods and pretrained backbones
 
 ### Phase 3: Data Pipeline Implementation
-- [ ] Create dataset class with loading and preprocessing
-- [ ] Implement label remapping logic
-- [ ] Build data augmentation pipeline (geometric + spectral)
-- [ ] Create train/val/test data loaders
-- [ ] Handle multi-modal input (EO + SAR concatenation/fusion)
+- [x] Create dataset class with loading and preprocessing
+- [x] Implement label remapping logic
+- [x] Build data augmentation pipeline (geometric + spectral)
+- [x] Create train/val/test data loaders
+- [x] Handle multi-modal input (EO + SAR concatenation/fusion)
 
 ### Phase 4: Model Architecture Design
-- [ ] Design baseline: UNet with Siamese encoder
-- [ ] Experiment with attention mechanisms (CBAM, self-attention)
+- [x] Design baseline: UNet with dual-encoder EO-SAR backbone
+- [x] Implement attention-gated decoder fusion
 - [ ] Try different backbones: ResNet, EfficientNet (pretrained on ImageNet)
-- [ ] Implement skip connections and feature fusion strategies
+- [x] Implement skip connections and feature fusion strategies
 
 ### Phase 5: Training Strategy
-- [ ] Select loss function (handle class imbalance: Focal Loss, Dice Loss, Tversky Loss)
-- [ ] Configure optimizer (Adam/AdamW with learning rate scheduling)
-- [ ] Set up training loop with validation monitoring
-- [ ] Implement early stopping and model checkpointing
-- [ ] Track metrics: IoU, Precision, Recall, F1
+- [x] Select loss function (Focal + Dice)
+- [x] Configure optimizer (AdamW with cosine scheduling)
+- [x] Set up training loop with validation monitoring
+- [x] Implement early stopping and model checkpointing
+- [x] Track metrics: IoU, Precision, Recall, F1
 
 ### Phase 6: Evaluation & Analysis
-- [ ] Compute all metrics on validation set
-- [ ] Compute all metrics on test set
-- [ ] Generate confusion matrix
-- [ ] Create qualitative visualizations (success + failure cases)
-- [ ] Analyze error patterns and failure modes
+- [x] Compute all metrics on validation set (debug checkpoint)
+- [x] Compute all metrics on test set (debug checkpoint)
+- [x] Generate confusion matrix (debug checkpoint)
+- [x] Create qualitative visualizations (debug checkpoint)
+- [x] Analyze error patterns and failure modes (debug checkpoint)
 
 ### Phase 7: Report Writing
-- [ ] Write Abstract
-- [ ] Document Literature Survey
-- [ ] Detail Methodology with rationale
-- [ ] Present Results with tables and figures
+- [x] Write Abstract (draft)
+- [x] Document Literature Survey (draft)
+- [x] Detail Methodology with rationale (draft)
+- [x] Present Results with tables and figures (debug draft)
 - [ ] Propose Future Work
-- [ ] Write Conclusion
-- [ ] Include Time and Resource Log
+- [x] Write Conclusion (draft)
+- [x] Include Time and Resource Log
 
 ### Phase 8: Submission Preparation
-- [ ] Create config.yaml with all hyperparameters
-- [ ] Prepare requirements.txt
-- [ ] Write comprehensive README.md
+- [x] Create config.yaml with all hyperparameters
+- [x] Prepare requirements.txt
+- [x] Write comprehensive README.md
 - [ ] Train final model and upload checkpoint (Google Drive/HuggingFace)
 - [ ] Create ZIP file: checkpoint + PDF report + time log
 - [ ] Push code to public GitHub repository
@@ -121,6 +121,13 @@ dataset/
 - Output: 2-channel logits for binary segmentation with change-class metrics
 - Input pipeline: EO RGB + SAR grayscale, resized to `256x256`, with mandatory label remapping
 
+## Current Status
+
+- Core implementation through Phase 6 is working and debug-validated on CPU
+- Debug checkpoint: `checkpoints_debug/best.pth`
+- Debug evaluation outputs: `results_debug_val/`, `results_debug_test/`, `results_debug_summary.md`
+- Full experiment training on `config.yaml` is still pending and is best run on a GPU-capable machine
+
 ## Quick Start Commands
 
 ```bash
@@ -132,12 +139,33 @@ pip install -r requirements.txt
 # Train model
 python -m src.train --config config.yaml
 
+# Run a short debug verification
+python -m src.train --config debug_config.yaml
+
 # Evaluate on validation or test set
 python -m src.eval --data_path dataset/val --weights checkpoints/best.pth --config config.yaml
 
+# Evaluate the debug checkpoint
+python -m src.eval --data_path dataset/val --weights checkpoints_debug/best.pth --config debug_config.yaml --output_dir results_debug_val
+python -m src.eval --data_path dataset/test --weights checkpoints_debug/best.pth --config debug_config.yaml --output_dir results_debug_test
+
 # Visualize predictions
 python -m src.visualize --data_path dataset/val --weights checkpoints/best.pth --output results --config config.yaml
+
+# Lint and format checks
+python -m ruff check src
+python -m black --check src
+
+# Run lightweight tests
+pytest tests -q
 ```
+
+## Helper Scripts
+
+- Windows batch files: `scripts/*.bat`
+- Shell scripts: `scripts/*.sh`
+- Final GPU handoff steps: `FINAL_RUN_INSTRUCTIONS.md`
+- Submission tracker: `SUBMISSION_CHECKLIST.md`
 
 ## Expected Deliverables
 
