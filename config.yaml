@@ -86,4 +86,4 @@ checkpoint:
 seed: 42
 
 # Device
-device: "cuda"  # or "cpu"
+device: "cpu"
