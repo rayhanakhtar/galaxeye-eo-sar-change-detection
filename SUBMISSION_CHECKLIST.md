@@ -9,9 +9,9 @@
 - [x] Debug confusion matrices produced
 - [x] Technical report draft created
 - [x] Time/resource log created
-- [ ] Full training run completed on `config.yaml`
-- [ ] Final checkpoint uploaded to public link
-- [ ] Final val/test metrics inserted into report
-- [ ] Final qualitative visualizations inserted into report
-- [ ] PDF report exported
-- [ ] ZIP file assembled
+- [x] Full training run completed on `config.yaml`
+- [x] Final submission ZIP prepared for public upload
+- [x] Final val/test metrics inserted into report
+- [x] Final qualitative visualizations generated
+- [x] PDF report exported
+- [x] ZIP file assembled locally

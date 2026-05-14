@@ -123,10 +123,12 @@ dataset/
 
 ## Current Status
 
-- Core implementation through Phase 6 is working and debug-validated on CPU
-- Debug checkpoint: `checkpoints_debug/best.pth`
-- Debug evaluation outputs: `results_debug_val/`, `results_debug_test/`, `results_debug_summary.md`
-- Full experiment training on `config.yaml` is still pending and is best run on a GPU-capable machine
+- Core implementation, full training, evaluation, visualization, and report generation are complete
+- Final checkpoint: `checkpoints/best.pth`
+- Final validation outputs: `results_val_final/`
+- Final test outputs: `results_test_final/`
+- Final submission report sources: `reports/final_technical_report.md`, `reports/final_technical_report.pdf`
+- Debug checkpoint and verification outputs are still available in `checkpoints_debug/`, `results_debug_val/`, and `results_debug_test/`
 
 ## Quick Start Commands
 
@@ -143,14 +145,16 @@ python -m src.train --config config.yaml
 python -m src.train --config debug_config.yaml
 
 # Evaluate on validation or test set
-python -m src.eval --data_path dataset/val --weights checkpoints/best.pth --config config.yaml
+python -m src.eval --data_path dataset/val --weights checkpoints/best.pth --config config.yaml --output_dir results_val_final
+python -m src.eval --data_path dataset/test --weights checkpoints/best.pth --config config.yaml --output_dir results_test_final
 
 # Evaluate the debug checkpoint
 python -m src.eval --data_path dataset/val --weights checkpoints_debug/best.pth --config debug_config.yaml --output_dir results_debug_val
 python -m src.eval --data_path dataset/test --weights checkpoints_debug/best.pth --config debug_config.yaml --output_dir results_debug_test
 
 # Visualize predictions
-python -m src.visualize --data_path dataset/val --weights checkpoints/best.pth --output results --config config.yaml
+python -m src.visualize --data_path dataset/val --weights checkpoints/best.pth --output results_val_final --config config.yaml
+python -m src.visualize --data_path dataset/test --weights checkpoints/best.pth --output results_test_final --config config.yaml
 
 # Lint and format checks
 python -m ruff check src
@@ -173,6 +177,29 @@ pytest tests -q
 2. **Model Weights**: Public download link in README (Google Drive/HuggingFace)
 3. **Technical Report (PDF)**: Comprehensive report with all sections
 4. **ZIP File**: FirstName_LastName_GalaxEye.zip containing weights + report + logs
+
+## Final Artifacts Available Locally
+
+- Final checkpoint: `checkpoints/best.pth`
+- Validation metrics: `results_val_final/evaluation_metrics.json`
+- Test metrics: `results_test_final/evaluation_metrics.json`
+- Validation visualizations: `results_val_final/predictions.png`
+- Test visualizations: `results_test_final/predictions.png`
+- Final report markdown: `reports/final_technical_report.md`
+- Final report PDF: `reports/final_technical_report.pdf`
+
+## Pending External Submission Items
+
+- Paste the public submission ZIP link in the submission form.
+- Public GitHub repository link: `https://github.com/rayhanakhtar/galaxeye-eo-sar-change-detection`
+
+## Model Weights
+
+- Final checkpoint included locally at `checkpoints/best.pth`
+
+## Public Repository
+
+- GitHub repository: `https://github.com/rayhanakhtar/galaxeye-eo-sar-change-detection`
 
 ---
 
